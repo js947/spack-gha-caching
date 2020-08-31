@@ -41,5 +41,6 @@ jobs:
 
       - name: Build env
         run: |
+          ls
           source spack/share/spack/setup-env.sh
           spack install
