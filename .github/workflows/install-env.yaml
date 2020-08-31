@@ -39,7 +39,7 @@ jobs:
           path: spack/opt/spack
           key: ${{ runner.os }}
 
-     - name: Build env
-       run: |
-         source spack/share/spack/setup-env.sh
-         spack install
+      - name: Build env
+        run: |
+          source spack/share/spack/setup-env.sh
+          spack install
