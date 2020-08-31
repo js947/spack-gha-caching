@@ -1,0 +1,45 @@
+name: Install Spack environment
+
+on:
+  push:
+    branches:
+      - '*'
+
+jobs:
+  build_env:
+    strategy:
+      matrix:
+        os: [ubuntu-16.04, ubuntu-18.04, ubuntu-20.04]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.7
+
+      - name: Display Python version
+        run: python -c "import sys; print(sys.version)"
+
+
+      - name: Get Spack
+        uses: actions/checkout@v2
+        with:
+          path: ./spack
+          repository: spack/spack
+          ref: develop
+
+      - name: Cache Spack installs
+        uses: actions/cache@v2
+        with:
+          path: spack/opt/spack
+          key: ${{ runner.os }}
+
+     - name: Build env
+       run: |
+         source spack/share/spack/setup-env.sh
+         spack install
