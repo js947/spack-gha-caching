@@ -37,12 +37,6 @@ jobs:
         id: spack_arch
         run: |
           source spack/share/spack/setup-env.sh
-          spack arch
-          echo "::set-output name=spack_arch::$(spack arch)"
-
-      - name: Test spack_arch variable
-        run: |
-          echo ${{ steps.spack_arch.outputs.spack_arch }}
           echo "::set-output name=spack_arch::$(spack arch)"
 
       - name: Cache Spack installs
