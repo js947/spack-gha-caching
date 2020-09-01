@@ -36,13 +36,14 @@ jobs:
       - name: Get Spack arch
         run: |
           source spack/share/spack/setup-env.sh
-          echo "::set-output name=arch::$(spack arch)"
+          spack arch
+          echo "::set-output name=spack_arch::$(spack arch)"
 
       - name: Cache Spack installs
         uses: actions/cache@v2
         with:
           path: spack/opt/spack
-          key: ${{ steps.get_spack_arch.outputs.arch }}
+          key: ${{ steps.build_env.outputs.spack_arch }}
 
       - name: Build env
         run: |
