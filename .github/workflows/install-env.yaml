@@ -34,7 +34,9 @@ jobs:
           ref: develop
 
       - name: Get Spack arch
-        run: echo "::set-output name=arch::$(spack arch)"
+        run: |
+          source spack/share/spack/setup-env.sh
+          echo "::set-output name=arch::$(spack arch)"
 
       - name: Cache Spack installs
         uses: actions/cache@v2
